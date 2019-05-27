@@ -403,11 +403,6 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
- 
-" vim syntastic  20190424
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -490,3 +485,7 @@ vnoremap <leader>' `><esc>a'<esc>`<i'<esc>`>
 " 状态条 status line -----------------------------------------------------------------------
 " 状态条 status line -----------------------------------------------------------------------
 
+" vim syntastic  20190424
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
