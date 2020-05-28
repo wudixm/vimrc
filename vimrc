@@ -98,7 +98,7 @@ Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'scrooloose/syntastic'
 
 " 2019-05-01 hardtime不用arrow key hjkl 等在vim 中
-Plugin 'takac/vim-hardtime'
+" Plugin 'takac/vim-hardtime'
 
 
 " 2019-05-24 整合fugitive 和 nerdtree
@@ -411,10 +411,10 @@ let g:syntastic_check_on_wq = 0
 
 
 " hardtime
-let g:hardtime_default_on = 1
-let g:hardtime_showmsg = 1
-let g:hardtime_ignore_buffer_patterns = [ "CustomPatt[ae]rn", "NERD.*" ]
-let g:hardtime_ignore_quickfix = 1
+" let g:hardtime_default_on = 1
+" let g:hardtime_showmsg = 1
+" let g:hardtime_ignore_buffer_patterns = [ "CustomPatt[ae]rn", "NERD.*" ]
+" let g:hardtime_ignore_quickfix = 1
 
 
 " 基础设置 basic settings ------------------------------------------------------------------
