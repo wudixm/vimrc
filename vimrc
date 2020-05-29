@@ -55,7 +55,7 @@ Plugin 'gcmt/wildfire.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'suan/vim-instant-markdown'
-Plugin 'lilydjwg/fcitx.vim'
+" Plugin 'lilydjwg/fcitx.vim'
 Plugin 'morhetz/gruvbox'
 
 "snip mate
