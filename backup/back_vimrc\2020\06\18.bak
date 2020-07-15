@@ -222,7 +222,6 @@ map <C-J> <C-W>w
 map <C-K> <C-W>W
 map j gj
 map k gk
-map y y$
 vnoremap g/ y/<C-R>"<CR>
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 vnoremap q9 <Esc>`>a)<Esc>`<i(<Esc>
