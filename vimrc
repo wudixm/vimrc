@@ -3,6 +3,7 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -30,7 +31,6 @@ Plugin 'tpope/vim-fugitive'
 " All of your Plugins must be added before the following line
 Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/phd'
-Plugin 'Lokaltog/vim-powerline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'derekwyatt/vim-fswitch'
@@ -47,8 +47,8 @@ Plugin 'dyng/ctrlsf.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/DrawIt'
-Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'derekwyatt/vim-protodef'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'gcmt/wildfire.vim'
@@ -57,6 +57,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'suan/vim-instant-markdown'
 " Plugin 'lilydjwg/fcitx.vim'
 Plugin 'morhetz/gruvbox'
+Plugin 'Lokaltog/vim-powerline'
 
 "snip mate
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -103,6 +104,10 @@ Plugin 'scrooloose/syntastic'
 
 " 2019-05-24 整合fugitive 和 nerdtree
 Plugin 'low-ghost/nerdtree-fugitive'
+Plugin 'francoiscabrol/ranger.vim'
+
+
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -222,7 +227,7 @@ map <C-J> <C-W>w
 map <C-K> <C-W>W
 map j gj
 map k gk
-map y y$
+map Y y$
 vnoremap g/ y/<C-R>"<CR>
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 vnoremap q9 <Esc>`>a)<Esc>`<i(<Esc>
@@ -480,6 +485,23 @@ nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>` viw<esc>a`<esc>hbi`<esc>lel
 vnoremap <leader>' `><esc>a'<esc>`<i'<esc>`>
+
+
+"<Leader>f在当前目录搜索文件
+nnoremap <Leader>F :Files<CR>
+"<Leader>b切换Buffer中的文件
+nnoremap <Leader>B :Buffers<CR>
+"<Leader>p在当前所有加载的Buffer中搜索包含目标词的所有行，:BLines只在当前Buffer中搜索
+nnoremap <Leader>P :Lines<CR>
+"<Leader>h在Vim打开的历史文件中搜索，相当于是在MRU中搜索，:History：命令历史查找
+nnoremap <Leader>H :History<CR>
+"调用Rg进行搜索，包含隐藏文件
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " 状态条 status line -----------------------------------------------------------------------
 " 状态条 status line -----------------------------------------------------------------------
