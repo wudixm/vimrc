@@ -81,7 +81,7 @@ Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'airblade/vim-gitgutter'
 
 " formatting
-Plugin 'Chiel92/vim-autoformat'
+" Plugin 'Chiel92/vim-autoformat'
 
 " color scheme
 Plugin 'dracula/vim'
@@ -464,6 +464,20 @@ autocmd BufNewFile,BufRead *.html setlocal nowrap
 "
 "
 " 上面map 过leader key 为,
+"
+"
+"
+"
+"
+" function! ToggleQuickFix()
+    " if empty(filter(getwininfo(), 'v:val.quickfix'))
+        " copen
+    " else
+        " lclose
+    " endif
+" endfunction
+
+nnoremap <silent> <F9> :lclose<cr>
 nnoremap L Lzz<CR>
 nnoremap H Hzz<CR>
 inoremap jk <esc>
@@ -502,6 +516,9 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+nmap <F8> :TagbarToggle<CR>
+
 
 " 状态条 status line -----------------------------------------------------------------------
 " 状态条 status line -----------------------------------------------------------------------
