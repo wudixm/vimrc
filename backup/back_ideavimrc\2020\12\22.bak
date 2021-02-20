@@ -1,6 +1,6 @@
 let mapleader=','
-" set number
-" set nonumber   " 无行号，用插件relative line number
+set number
+set nonumber   " 无行号，用插件relative line number
 " set relativenumber
 " set hlsearch
 set incsearch
@@ -206,5 +206,8 @@ nnoremap <c-i> :action Forward<cr>
 nnoremap == :action ReformatCode<CR>
 nnoremap g; :action JumpToLastChange<CR>
 nnoremap g, :action JumpToNextChange<CR>
-nnoremap <leader>rl :action RecentLocations<CR>
+
+
+
+
 

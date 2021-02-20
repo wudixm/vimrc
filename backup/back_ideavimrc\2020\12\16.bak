@@ -1,6 +1,6 @@
 let mapleader=','
-" set number
-" set nonumber   " 无行号，用插件relative line number
+set number
+set nonumber   " 无行号，用插件relative line number
 " set relativenumber
 " set hlsearch
 set incsearch
@@ -191,20 +191,3 @@ nnoremap g* g*zz
 
 nnoremap <leader>. :action OptimizeImports<CR>
 set easymotion
-
-nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
-nnoremap <leader>pc :action VcsShowPrevChangeMarker<CR>
-nnoremap <leader>nc :action VcsShowNextChangeMarker<CR>
-
-
-set ideajoin
-
-nnoremap [m :action MethodUp<cr>
-nnoremap ]m :action MethodDown<cr>
-nnoremap <c-o> :action Back<cr>
-nnoremap <c-i> :action Forward<cr>
-nnoremap == :action ReformatCode<CR>
-nnoremap g; :action JumpToLastChange<CR>
-nnoremap g, :action JumpToNextChange<CR>
-nnoremap <leader>rl :action RecentLocations<CR>
-
