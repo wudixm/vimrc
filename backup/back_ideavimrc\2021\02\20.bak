@@ -1,7 +1,7 @@
 let mapleader=','
-" set nonumber   " 无行号，用插件relative line number
-set relativenumber
 set number
+set nonumber   " 无行号，用插件relative line number
+" set relativenumber
 " set hlsearch
 set incsearch
 set ignorecase
@@ -193,7 +193,6 @@ nnoremap <leader>. :action OptimizeImports<CR>
 set easymotion
 
 nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
-nnoremap <leader>x :action TogglePresentationMode<CR>
 nnoremap <leader>pc :action VcsShowPrevChangeMarker<CR>
 nnoremap <leader>nc :action VcsShowNextChangeMarker<CR>
 
@@ -208,3 +207,4 @@ nnoremap == :action ReformatCode<CR>
 nnoremap g; :action JumpToLastChange<CR>
 nnoremap g, :action JumpToNextChange<CR>
 nnoremap <leader>rl :action RecentLocations<CR>
+
