@@ -14,9 +14,6 @@ set surround                      " emulate vim-surround plugin
 set keep-english-in-normal
 set keep-english-in-normal-and-restore-in-insert
 
-set commentary " 启动注释插件 https://stackoverflow.com/questions/54934965/mapping-to-comment-out-multiple-lines-with-a-motion-in-ideavim
-
-
 
 " set switch-to-english-when-exit-insert-mode
 " edit ideavim config
