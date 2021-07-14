@@ -1,0 +1,213 @@
+let mapleader=','
+" set nonumber   " 无行号，用插件relative line number
+set relativenumber
+set number
+" set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmode
+set scrolloff=0
+set history=100000
+set clipboard=unnamed
+set surround                      " emulate vim-surround plugin
+set keep-english-in-normal
+set keep-english-in-normal-and-restore-in-insert
+
+set commentary " 启动注释插件 https://stackoverflow.com/questions/54934965/mapping-to-comment-out-multiple-lines-with-a-motion-in-ideavim
+
+
+
+" set switch-to-english-when-exit-insert-mode
+" edit ideavim config
+nnoremap <leader>ev :e ~/.ideavimrc<CR>
+nnoremap <leader>sv :source ~/.ideavimrc<CR>
+
+
+" clear the highlighted search result
+nnoremap <Leader><space> :nohlsearch<CR>
+
+nnoremap <Leader>fs :w<CR>
+
+nnoremap <Leader>? :action GotoAction<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+
+nnoremap <Leader>fu :action FindUsages<CR>
+
+" Quit normal mode
+nnoremap <Leader>q  :q<CR>
+nnoremap <Leader>Q  :qa!<CR>
+
+" Move half page faster
+nnoremap <Leader>d  <C-d>
+nnoremap <Leader>u  <C-u>
+
+" Insert mode shortcut
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Delete>
+
+" Quit insert mode
+"inoremap jj <Esc>
+inoremap jk <Esc>
+"inoremap kk <Esc>
+
+" Quit visual mode
+vnoremap v <Esc>
+
+" Move to the start of line
+" nnoremap H ^
+
+" Move to the end of line
+" nnoremap L $
+
+" Redo
+" nnoremap U <C-r>
+
+nnoremap R :action RenameElement<CR>
+nnoremap U :action ShowUsages<CR>
+nnoremap <leader>fs :action FileStructurePopup<CR>
+
+
+" Yank to the end of line
+nnoremap Y y$
+
+" quit ==> close current window
+nnoremap <Leader>q <C-W>w
+
+" Window operation
+nnoremap <Leader>ww <C-W>w
+nnoremap <Leader>wd <C-W>c
+nnoremap <Leader>wj <C-W>j
+nnoremap <Leader>wk <C-W>k
+nnoremap <Leader>wh <C-W>h
+nnoremap <Leader>wl <C-W>l
+nnoremap <Leader>ws <C-W>s
+nnoremap <Leader>w- <C-W>s
+nnoremap <Leader>wv <C-W>v
+nnoremap <Leader>w\| <C-W>v
+
+" Tab operation
+nnoremap tn gt
+nnoremap tp gT
+
+" ==================================================
+" Show all the provided actions via `:actionlist`
+" ==================================================
+
+" built in search looks better
+nnoremap / :action Find<CR>
+" but preserve ideavim search
+nnoremap <Leader>/ /
+
+nnoremap <Leader>;; :action CommentByLineComment<CR>
+
+nnoremap <Leader>bb :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>br :action ViewBreakpoints<CR>
+
+nnoremap <Leader>cv :action ChangeView<CR>
+
+nnoremap <Leader>cd :action ChooseDebugConfiguration<CR>
+
+nnoremap ga :action GotoAction<CR>
+nnoremap gc :action GotoClass<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gf :action GotoFile<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gs :action GotoSymbol<CR>
+
+nnoremap <Leader>ga :action GotoAction<CR>
+nnoremap <Leader>gc :action GotoClass<CR>
+nnoremap <Leader>gd :action GotoDeclaration<CR>
+nnoremap <Leader>gi :action GotoImplementation<CR>
+nnoremap <Leader>gs :action GotoSymbol<CR>
+nnoremap <Leader>gt :action GotoTest<CR>
+
+nnoremap <Leader>fp :action ShowFilePath<CR>
+
+nnoremap <Leader>ic :action InspectCode<CR>
+
+nnoremap <Leader>mv :action ActivateMavenProjectsToolWindow<CR>
+
+nnoremap <Leader>oi :action OptimizeImports<CR>
+
+nnoremap <Leader>pm :action ShowPopupMenu<CR>
+
+nnoremap <Leader>rc :action RunToCursor<CR>
+nnoremap <Leader>rC :action ChooseRunConfiguration<CR>
+nnoremap <Leader>re :action RenameElement<CR>
+" nnoremap <Leader>rf :action RenameFile<CR>
+
+nnoremap <Leader>rr :action Rerun<CR>
+
+nnoremap <Leader>se :action SearchEverywhere<CR>
+nnoremap <Leader>su :action ShowUsages<CR>
+nnoremap <Leader>tc :action CloseActiveTab<CR>
+nnoremap <Leader>si :action StepInto<CR>
+
+nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
+
+nnoremap <Leader>tl Vy<CR>:action ActivateTerminalToolWindow<CR>
+vnoremap <Leader>tl y<CR>:action ActivateTerminalToolWindow<CR> 
+
+
+nnoremap <leader>e :action SearchEverywhere<CR>
+nnoremap <leader>g :action FindInPath<CR>
+nnoremap <leader>s :action FileStructurePopup<CR>
+nnoremap <Leader>pi :action ParameterInfo<CR>
+
+nnoremap <leader>rf :action RecentFiles<CR>
+nnoremap <leader>ft :action ActivateFindToolWindow<CR>
+
+"nnoremap <Leader>b  :normal! *ggnV<CR>
+nnoremap vv * gg n yy <C-o> <C-o> <C-o> zz
+nnoremap vc ?class\s<CR> W :action FindUsages<CR>
+nnoremap vx $ b viw y bb i'<Esc> w i'<Esc> hh i=<Esc> ll i+str(<Esc> P x
+
+
+" nnoremap vx ?class\s<CR> W bve :action FindInPath<CR> :action ActivateFindToolWindow<CR>
+
+nnoremap H Hzz
+nnoremap M Mzz
+nnoremap L Lzz
+inoremap jk <esc>
+inoremap <esc> <nop>
+" nnoremap yss _ys$
+"
+" Keep search pattern at the center of the screen {{{
+" nnoremap <silent>n nzz
+" nnoremap <silent>N Nzz
+" nnoremap <silent>* *zz
+" nnoremap <silent># #zz
+" nnoremap <silent>g* g*zz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+" }}}
+
+nnoremap <leader>. :action OptimizeImports<CR>
+set easymotion
+
+nnoremap <leader>z :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>x :action ToggleZenMode<CR>
+nnoremap <leader>pc :action VcsShowPrevChangeMarker<CR>
+nnoremap <leader>nc :action VcsShowNextChangeMarker<CR>
+
+
+set ideajoin
+
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+nnoremap == :action ReformatCode<CR>
+nnoremap g; :action JumpToLastChange<CR>
+nnoremap g, :action JumpToNextChange<CR>
+nnoremap <leader>rl :action RecentLocations<CR>
