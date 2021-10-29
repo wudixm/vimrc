@@ -9,6 +9,7 @@
 ;;
 (require 'evil)
 (evil-mode 1)
+
 ;;(custom-set-variables
 ;; ;; custom-set-variables was added by Custom.
 ;; ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,7 +39,8 @@
 
 (menu-bar-mode -1)            ; Disable the menu bar
 (global-display-line-numbers-mode t)
-(setq display-line-numbers-type 'relative)
+; (setq display-line-numbers-type 'visual)
+(setq display-line-numbers-type 't)
 
 ;; Set up the visible bell
 (setq visible-bell t)
@@ -81,7 +83,11 @@
 ;; key mappings 快捷键
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;;(global-set-key (kbd "H") (kbd "H zz"))
-(define-key evil-normal-state-map (kbd "H") (kbd "H zz"))
+;; (define-key evil-normal-state-map (kbd "H") (kbd "H zz"))
+; (define-key evil-normal-state-map (kbd "C-r") 'isearch-backward) 
+; https://stackoverflow.com/questions/44480585/how-to-rebind-c-r-undo-tree-redo-in-emacs-with-evil-mode
+(define-key evil-normal-state-map (kbd "C-r") 'evil-scroll-line-up)
+
 
 
 ;; packages 包管理
@@ -114,7 +120,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(wgrep flx ivy-rich ivy-hydra counsel ivy command-log-mode use-package ##)))
+   '(undo-tree markdown-mode yafolding json-mode visual-fill-column org-superstar diminish wgrep flx ivy-rich ivy-hydra counsel ivy command-log-mode use-package ##)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -232,3 +238,95 @@
                                   (left-fringe . 8)
 me-mode 1)))
 
+(use-package diminish)
+
+
+;; org mode 部分
+(setq-default fill-column 80)
+;; Turn on indentation and auto-fill mode for Org files
+(defun dw/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
+  (visual-line-mode 1)
+  (setq evil-auto-indent nil)
+  (diminish org-indent-mode))
+
+
+(use-package org
+  :defer t
+  :hook (org-mode . dw/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"
+        ; org-hide-emphasis-markers t
+        org-src-fontify-natively t
+        org-fontify-quote-and-verse-blocks t
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 2
+        org-hide-block-startup nil
+        org-src-preserve-indentation nil
+        org-startup-folded 'content
+        org-cycle-separator-lines 2))
+
+(use-package org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+
+;; Replace list hyphen with dot
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+;;(set-face-attribute 'org-document-title nil :weight 'bold :height 1.3)
+;;(dolist (face '((org-level-1 . 1.2)
+;;                (org-level-2 . 1.1)
+;;                (org-level-3 . 1.05)
+;;                (org-level-4 . 1.0)
+;;                (org-level-5 . 1.1)
+;;                (org-level-6 . 1.1)
+;;                (org-level-7 . 1.1)
+;;                (org-level-8 . 1.1)))
+;;  (set-face-attribute (car face) nil :weight 'medium :height (cdr face)))
+
+(defun dw/org-mode-visual-fill ()
+  (setq visual-fill-column-width 110
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :defer t
+  :hook (org-mode . dw/org-mode-visual-fill))
+
+(set-face-attribute 'default nil :height 200)
+
+; 有关备份文件
+; https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
+(setq backup-directory-alist `(("." . "~/.saves")))
+
+; org tree slide
+; https://github.com/takaxp/org-tree-slide/blob/master/README.org
+(add-to-list 'load-path "~/.emacs.d/org-tree-slide")
+(require 'org-tree-slide)
+
+(with-eval-after-load "org-tree-slide"
+  (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+  )
+
+(add-to-list 'load-path "~/local/softwares/common/emacs/orgmode-master/contrib/lisp" t)
+
+(require 'ox-confluence)
+
+; redo undo 和vim u C_r 同样效果
+; https://github.com/ProofGeneral/PG/issues/430
+;; undo tree
+(add-to-list 'load-path "~/.emacs.d/undo-tree")
+(use-package undo-tree
+  :config
+  (turn-on-undo-tree-mode))
+(define-key evil-normal-state-map (kbd "C-r") 'undo-tree-redo)
+(define-key evil-normal-state-map (kbd "u") 'undo-tree-undo)

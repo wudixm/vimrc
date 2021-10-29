@@ -168,7 +168,6 @@ nnoremap <leader>ft :action ActivateFindToolWindow<CR>
 nnoremap vv * gg n yy <C-o> <C-o> <C-o> zz
 nnoremap vc ?class\s<CR> W :action FindUsages<CR>
 nnoremap vx $ b viw y bb i'<Esc> w i'<Esc> hh i=<Esc> ll i+str(<Esc> P x
-" nnoremap vb V :action FindInPath<CR><CR>
 
 
 " nnoremap vx ?class\s<CR> W bve :action FindInPath<CR> :action ActivateFindToolWindow<CR>
