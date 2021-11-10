@@ -12,7 +12,7 @@ set history=100000
 set clipboard=unnamed
 set surround                      " emulate vim-surround plugin
 set keep-english-in-normal
-" set keep-english-in-normal-and-restore-in-insert
+set keep-english-in-normal-and-restore-in-insert
 
 set commentary " 启动注释插件 https://stackoverflow.com/questions/54934965/mapping-to-comment-out-multiple-lines-with-a-motion-in-ideavim
 
@@ -212,5 +212,3 @@ nnoremap == :action ReformatCode<CR>
 nnoremap g; :action JumpToLastChange<CR>
 nnoremap g, :action JumpToNextChange<CR>
 nnoremap <leader>rl :action RecentLocations<CR>
-
-

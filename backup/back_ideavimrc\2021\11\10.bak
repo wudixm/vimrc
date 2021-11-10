@@ -212,5 +212,3 @@ nnoremap == :action ReformatCode<CR>
 nnoremap g; :action JumpToLastChange<CR>
 nnoremap g, :action JumpToNextChange<CR>
 nnoremap <leader>rl :action RecentLocations<CR>
-
-
