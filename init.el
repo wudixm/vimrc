@@ -120,7 +120,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(undo-tree markdown-mode yafolding json-mode visual-fill-column org-superstar diminish wgrep flx ivy-rich ivy-hydra counsel ivy command-log-mode use-package ##)))
+   '(org-roam deft undo-tree markdown-mode yafolding json-mode visual-fill-column org-superstar diminish wgrep flx ivy-rich ivy-hydra counsel ivy command-log-mode use-package ##)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -330,3 +330,54 @@ me-mode 1)))
   (turn-on-undo-tree-mode))
 (define-key evil-normal-state-map (kbd "C-r") 'undo-tree-redo)
 (define-key evil-normal-state-map (kbd "u") 'undo-tree-undo)
+
+; dift 相关配置https://github.com/jrblevin/deft 2021-11-19添加
+;(setq deft-extensions '("txt" "tex" "org"))
+;(setq deft-recursive t)
+;(setq deft-use-filename-as-title t)
+;(setq deft-use-filter-string-for-filename t)
+;(setq deft-file-naming-rules '((noslash . "-")
+;                               (nospace . "-")
+;                               (case-fn . downcase)))
+;(setq deft-text-mode 'org-mode)
+;(setq deft-org-mode-title-prefix t)
+;(setq deft-strip-summary-regexp
+; (concat "\\("
+;         "[\n\t]" ;; blank
+;	 "\\([\n ]\\|[[:upper:]_]+:.*$\\)"
+;         "\\)"))
+(setq deft-extensions '("txt" "tex" "org" "md"))
+(setq deft-directory "/Users/wuxiaoming/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
+(setq deft-recursive t)
+(setq deft-file-naming-rules '((noslash . "_")))
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filter-string-for-filename t)
+(setq deft-org-mode-title-prefix t)
+(setq deft-use-filename-as-title nil)
+(setq deft-strip-summary-regexp
+      (concat "\\("
+              "[\n\t]" ;; blank
+              "\\|^#\\+[[:upper:]_]+:.*$" ;; org-mode metadata
+              "\\|^#\\+[[:alnum:]_]+:.*$" ;; org-mode metadata
+              "\\)"))
+(global-set-key [f4] 'deft)
+
+(global-set-key [f6] 'toggle-truncate-lines)
+
+(setq org-roam-v2-ack t)
+
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "/Users/wuxiaoming/local/tempFiles/org_roam")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+	 :map org-mode-map
+         ("C-M-i"    . completion-at-point)
+	 )
+  :config
+  (org-roam-setup))
+
+(setq org-roam-node-display-template "${title} ${tags}")
