@@ -81,12 +81,39 @@
 (load-theme 'tango-dark)
 
 ;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
+;; key mappings 快捷键
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;;(global-set-key (kbd "H") (kbd "H zz"))
 ;; (define-key evil-normal-state-map (kbd "H") (kbd "H zz"))
 ; (define-key evil-normal-state-map (kbd "C-r") 'isearch-backward) 
 ; https://stackoverflow.com/questions/44480585/how-to-rebind-c-r-undo-tree-redo-in-emacs-with-evil-mode
 (define-key evil-normal-state-map (kbd "C-r") 'evil-scroll-line-up)
+(define-key evil-insert-state-map (kbd "C-n") 'evil-next-visual-line)
+(define-key evil-insert-state-map (kbd "C-p") 'evil-previous-visual-line)
+(define-key evil-insert-state-map (kbd "C-d") 'evil-delete-char)
+(define-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
+(define-key evil-insert-state-map (kbd "C-e") 'evil-end-of-visual-line)
+(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-k") 'evil-delete-backward-char)
+(defun my-delete-to-end-of-line ())
 
 
 
@@ -369,7 +396,7 @@ me-mode 1)))
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "/Users/wuxiaoming/local/tempFiles/org_roam")
+  (org-roam-directory "/Users/wuxiaoming/Library/Mobile Documents/com~apple~CloudDocs/KnowledgeBase/")
   (org-roam-completion-everywhere t)
   (org-roam-dailies-capture-templates
     '(("d" "default" entry "* %<%I:%M %p>: %?"
