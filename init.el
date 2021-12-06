@@ -112,7 +112,7 @@
 (define-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
 (define-key evil-insert-state-map (kbd "C-e") 'evil-end-of-visual-line)
 (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char)
-(define-key evil-insert-state-map (kbd "C-k") 'evil-delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-k") 'evil-delete-line)
 (defun my-delete-to-end-of-line ())
 
 
