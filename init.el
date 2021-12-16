@@ -105,14 +105,21 @@
 ;; (define-key evil-normal-state-map (kbd "H") (kbd "H zz"))
 ; (define-key evil-normal-state-map (kbd "C-r") 'isearch-backward) 
 ; https://stackoverflow.com/questions/44480585/how-to-rebind-c-r-undo-tree-redo-in-emacs-with-evil-mode
+
+; normal mode
 (define-key evil-normal-state-map (kbd "C-r") 'evil-scroll-line-up)
+(define-key evil-normal-state-map (kbd "C-n") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "C-p") 'evil-previous-visual-line)
+
+; insert mode
 (define-key evil-insert-state-map (kbd "C-n") 'evil-next-visual-line)
 (define-key evil-insert-state-map (kbd "C-p") 'evil-previous-visual-line)
 (define-key evil-insert-state-map (kbd "C-d") 'evil-delete-char)
 (define-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
 (define-key evil-insert-state-map (kbd "C-e") 'evil-end-of-visual-line)
 (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char)
-(define-key evil-insert-state-map (kbd "C-k") 'evil-delete-backward-char)
+(define-key evil-insert-state-map (kbd "C-k") 'evil-delete-line)
+(define-key evil-insert-state-map (kbd "C-w") 'evil-delete-backward-word)
 (defun my-delete-to-end-of-line ())
 
 
@@ -418,3 +425,5 @@ me-mode 1)))
   (org-roam-setup))
 
 (setq org-roam-node-display-template "${title} ${tags}")
+
+(setq buffers-menu-buffer-name-length nil)
