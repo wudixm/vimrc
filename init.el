@@ -407,7 +407,7 @@ me-mode 1)))
   (org-roam-completion-everywhere t)
   (org-roam-dailies-capture-templates
     '(("d" "default" entry "* %<%I:%M %p>: %?"
-       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+hugo_auto_set_lastmod: t\n#+date: %<%Y-%m-%d>\n#+hugo_categories: 日记\n#+hugo_tags: 日记\n#+HUGO_SECTION: post\n"))))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
@@ -427,3 +427,7 @@ me-mode 1)))
 (setq org-roam-node-display-template "${title} ${tags}")
 
 (setq buffers-menu-buffer-name-length nil)
+
+; https://emacs.stackexchange.com/questions/5939/how-to-disable-auto-indentation-of-new-lines/5941
+; https://stackoverflow.com/questions/21182550/how-to-turn-off-electric-indent-mode-for-specific-major-mode/21183089#21183089
+(electric-indent-mode -1)
