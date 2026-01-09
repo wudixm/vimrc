@@ -22,7 +22,10 @@ set commentary " 启动注释插件 https://stackoverflow.com/questions/54934965
 " edit ideavim config
 nnoremap <leader>ev :e ~/.ideavimrc<CR>
 nnoremap <leader>sv :source ~/.ideavimrc<CR>
+nnoremap <leader>p "0p
+xnoremap <leader>p "0p
 
+nnoremap <leader>la yy exe ":norm "" sh ~/1.sh \<M-V>"
 
 " clear the highlighted search result
 nnoremap <Leader><space> :nohlsearch<CR>
@@ -53,9 +56,11 @@ inoremap <C-e> <End>
 inoremap <C-d> <Delete>
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
 
 " Quit insert mode
-"inoremap jj <Esc>
+inoremap jj <Esc>A#todo test later delete<Esc>
 inoremap jk <Esc>
 "inoremap kk <Esc>
 
@@ -168,7 +173,11 @@ nnoremap <leader>ft :action ActivateFindToolWindow<CR>
 
 "nnoremap <Leader>b  :normal! *ggnV<CR>
 nnoremap vv * gg n yy <C-o> <C-o> <C-o> zz
+
+" 查看当前类的FindUsage
 nnoremap vc ?class\s<CR> W :action FindUsages<CR>
+
+" 把F.debug_msg(content) -> F.debug_msg('content='+str(content))
 nnoremap vx $ b viw y bb i'<Esc> w i'<Esc> hh i=<Esc> ll i+str(<Esc> P x
 " nnoremap vb V :action FindInPath<CR><CR>
 
@@ -217,5 +226,25 @@ nnoremap <leader>rl :action RecentLocations<CR>
 
 nnoremap <leader>ctm :action CloseAllUnmodifiedEditors<CR>
 nnoremap <leader>cto :action CloseAllEditorsButActive<CR>
+
+
+
+
+
+nmap <leader>I :call Praise("IdeaVim")<CR>
+
+function! Praise(name)
+  echo a:name .. " is good"
+endfunction
+
+nmap <leader>xxx :call writeOne("IdeaVim")<CR>
+
+function! writeOne(name)
+"call writefile(["12321"], "/Users/wuxiaoming/1.sh")
+    let a:name = "norm sh ~/1.sh " . name
+    exe a:name
+    "exe command
+endfunction
+
 
 

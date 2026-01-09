@@ -1,10 +1,17 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export FZF_BASE=/usr/local/opt/fzf
+export OPENAI_API_KEY="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"
 
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -427,3 +434,13 @@ c() {
   awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
   fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open > /dev/null 2> /dev/null
 }
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+# ------ chsrc BLOCK BEGIN for Homebrew ------
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn//git/homebrew/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn//git/homebrew/homebrew-core.git"
+# For Bottles
+export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn//homebrew-bottles/api"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn//homebrew-bottles"
+# ------ chsrc BLOCK ENDIN for Homebrew ------

@@ -7,9 +7,13 @@
 ;;
 (add-to-list 'load-path "~/.emacs.d/evil")
 ;;
+(setq evil-want-C-i-jump nil) ;; https://stackoverflow.com/questions/22878668/emacs-org-mode-evil-mode-tab-key-not-working
+
+
 (require 'evil)
 (evil-mode 1)
 
+(load-theme 'tango-dark)
 ;;(custom-set-variables
 ;; ;; custom-set-variables was added by Custom.
 ;; ;; If you edit it by hand, you could mess it up, so be careful.
@@ -78,7 +82,6 @@
 (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
 
 
-(load-theme 'tango-dark)
 
 ;; key mappings 快捷键
 ;; key mappings 快捷键
@@ -132,6 +135,9 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
+;(setq package-archives
+      ;'(("gnu" . "http://elpa.gnu.org/packages/")
+        ;("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (package-initialize)
 ;; (unless package-archive-contents
@@ -153,8 +159,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-export-backends '(ascii html icalendar latex md odt confluence))
  '(package-selected-packages
-   '(org-roam deft undo-tree markdown-mode yafolding json-mode visual-fill-column org-superstar diminish wgrep flx ivy-rich ivy-hydra counsel ivy command-log-mode use-package ##)))
+   '(## auctex command-log-mode counsel deft diminish dtrt-indent easy-hugo flx ivy
+	ivy-hydra ivy-rich json-mode markdown-mode org-roam org-superstar
+	ox-hugo ox-pandoc projectile undo-tree use-package visual-fill-column
+	wgrep yafolding)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -352,18 +362,21 @@ me-mode 1)))
   )
 
 (add-to-list 'load-path "~/local/softwares/common/emacs/orgmode-master/contrib/lisp" t)
+(add-to-list 'exec-path "/usr/local/bin/") 
+(setq org-pandoc-options '((standalone . t)))
+
 
 (require 'ox-confluence)
 
 ; redo undo 和vim u C_r 同样效果
 ; https://github.com/ProofGeneral/PG/issues/430
 ;; undo tree
-(add-to-list 'load-path "~/.emacs.d/undo-tree")
-(use-package undo-tree
-  :config
-  (turn-on-undo-tree-mode))
-(define-key evil-normal-state-map (kbd "C-r") 'undo-tree-redo)
-(define-key evil-normal-state-map (kbd "u") 'undo-tree-undo)
+;(add-to-list 'load-path "~/.emacs.d/undo-tree")
+;(use-package undo-tree
+;  :config
+;  (turn-on-undo-tree-mode))
+;(define-key evil-normal-state-map (kbd "C-r") 'undo-tree-redo)
+;(define-key evil-normal-state-map (kbd "u") 'undo-tree-undo)
 
 ; dift 相关配置https://github.com/jrblevin/deft 2021-11-19添加
 ;(setq deft-extensions '("txt" "tex" "org"))
@@ -407,7 +420,12 @@ me-mode 1)))
   (org-roam-completion-everywhere t)
   (org-roam-dailies-capture-templates
     '(("d" "default" entry "* %<%I:%M %p>: %?"
-       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n#+hugo_auto_set_lastmod: t\n#+date: %<%Y-%m-%d>\n#+hugo_categories: 日记\n#+hugo_tags: \n#+HUGO_SECTION: post\n"))))
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+DATE: %<%Y-%m-%d>\n#+hugo_auto_set_lastmod: t\n#+hugo_categories: \n#+hugo_tags: \n#+HUGO_BASE_DIR: /Users/wuxiaoming/local/codes/Study/hugo/ox-hugo-test/content\n#+HUGO_SECTION: post\n")
+      :unnarrowed t)))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
@@ -418,7 +436,7 @@ me-mode 1)))
          ("T" . org-roam-dailies-capture-tomorrow)
 	 )
   :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
+ ("C-c n d" . org-roam-dailies-map)
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode)
@@ -427,3 +445,76 @@ me-mode 1)))
 (setq org-roam-node-display-template "${title} ${tags}")
 
 (setq buffers-menu-buffer-name-length nil)
+
+; ox-hugo 20220101加
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
+
+
+; easy-hugo 20220102加
+(use-package easy-hugo
+  :init
+  (setq easy-hugo-basedir "/Users/wuxiaoming/local/codes/Study/hugo/ox-hugo-test/content") ;; 网站本地文件根目录
+  ;(setq easy-hugo-url "https://kinredon.github.io") ;; url 路径
+  ;(setq easy-hugo-sshdomain "kinredon.github.io")
+  (setq easy-hugo-previewtime "300")
+  (setq easy-hugo-default-ext ".org")
+  :bind ("C-c C-e" . easy-hugo))
+
+(electric-indent-mode -1)
+
+
+; (set-face-attribute 'default nil :font "苹方-简" )
+; (set-frame-font "苹方-简"  nil t)
+;(set-face-attribute 'default nil :font "华文宋体" )
+;(set-frame-font "华文宋体"  nil t)
+ ;(set-default-font
+     ;"-apple-inconsolata-medium-r-normal--13-130-72-72-m-130-iso10646-1")
+
+;; Default
+(set-face-attribute 'default nil :family "JetBrains Mono" :height 180)
+
+;; Variable-pitch
+(set-face-attribute 'variable-pitch nil :family "JetBrains Mono" :height 180)
+
+;; Fixed-pitch
+(set-face-attribute 'fixed-pitch nil :family "JetBrains Mono")
+
+;; International Phonetic Alphabet
+(set-fontset-font t 'phonetic (font-spec :family "DejaVu Sans Mono"))
+(dolist (char (string-to-list "æθðŋʷʸˈˌ"))
+  (set-fontset-font nil char (font-spec :family "DejaVu Sans Mono")))
+
+
+(setq org-image-actual-width nil)
+
+;;(setq org-format-latex-options '(scale 30))
+(plist-put org-format-latex-options :scale 1.5)
+
+
+
+; (setq org-latex-preview-appearance-options
+      ; '(:foreground default
+        ; :background default
+        ; :zoom 5
+        ; :scale 5
+        ; :page-width 1.0))
+
+
+
+; https://github.com/oantolin/math-delimiters 2026-01-06
+(autoload 'math-delimiters-insert "~/.emacs.d/math-delimiters-master/math-delimiters")
+
+(with-eval-after-load 'org
+  (define-key org-mode-map "$" #'math-delimiters-insert))
+
+(with-eval-after-load 'tex              ; for AUCTeX
+  (define-key TeX-mode-map "$" #'math-delimiters-insert))
+
+(with-eval-after-load 'tex-mode         ; for the built-in TeX/LaTeX modes
+  (define-key tex-mode-map "$" #'math-delimiters-insert))
+
+(with-eval-after-load 'cdlatex
+  (define-key cdlatex-mode-map "$" nil))
+
+

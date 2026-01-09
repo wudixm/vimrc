@@ -3,7 +3,10 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+" set rtp+=/usr/local/opt/fzf
 set rtp+=/usr/local/opt/fzf
+" set rtp+=~/.fzf
+
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -14,7 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -37,7 +40,7 @@ Plugin 'derekwyatt/vim-fswitch'
 Plugin 'kshenoy/vim-signature'
 "Plugin 'vim-scripts/BOOKMARKS—Mark-and-Highlight-Full-Lines' invalid name
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/indexer.tar.gz'
 Plugin 'luochen1990/rainbow'
@@ -54,7 +57,7 @@ Plugin 'fholgado/minibufexpl.vim'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'suan/vim-instant-markdown'
+" Plugin 'suan/vim-instant-markdown'
 " Plugin 'lilydjwg/fcitx.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-powerline'
@@ -62,8 +65,8 @@ Plugin 'Lokaltog/vim-powerline'
 "snip mate
 Plugin 'MarcWeber/vim-addon-mw-utils'
 
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
 Plugin 'ervandew/supertab'
 
 " Optional:
@@ -88,15 +91,15 @@ Plugin 'dracula/vim'
 Plugin 'haishanh/night-owl.vim'
 
 " change  输入法
-Plugin 'myshov/xkbswitch-macosx'
-Plugin 'myshov/libxkbswitch-macosx'
-Plugin 'lyokha/vim-xkbswitch'
+" Plugin 'myshov/xkbswitch-macosx'
+" Plugin 'myshov/libxkbswitch-macosx'
+" Plugin 'lyokha/vim-xkbswitch'
 
 " 0403 自己加 gutentags
 Plugin 'ludovicchabant/vim-gutentags'
 
 " 2019-04-24 从vim awesome 上看到的syntastic
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 
 " 2019-05-01 hardtime不用arrow key hjkl 等在vim 中
 " Plugin 'takac/vim-hardtime'
@@ -107,6 +110,8 @@ Plugin 'low-ghost/nerdtree-fugitive'
 Plugin 'francoiscabrol/ranger.vim'
 
 
+
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 
 call vundle#end()            " required
@@ -233,6 +238,14 @@ vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 vnoremap q9 <Esc>`>a)<Esc>`<i(<Esc>
 vnoremap q' <Esc>`>a"<Esc>`<i"<Esc>
 
+function! Flip()
+    if getline(".")[col(".")-1] == '1'
+        normal! r0
+    else
+        normal! r1
+    endif
+endfunction
+nnoremap ` :call Flip()<CR>
 
 
 
@@ -245,6 +258,7 @@ function! OnlyAndNerdtree()
 endfunction
 
 command! Only call OnlyAndNerdtree()
+command! Test :execute "!/Users/wuxiaoming/local/tempFiles/1.sh | pbcopy"
 
 
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -313,7 +327,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " let g:UltiSnipsEditSplit="vertical"
 
 " vim folding
-let g:vim_markdown_folding_disabled = 1
+" let g:vim_markdown_folding_disabled = 1
 
 
 
@@ -325,6 +339,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType sh set tabstop=8|set shiftwidth=8|set expandtab
 
 
 
@@ -415,7 +430,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" let g:netrw_browsex_viewer= "mvim "
 
+" let g:netrw_gx =  "<cword>"
 
 " hardtime
 " let g:hardtime_default_on = 1
@@ -454,6 +471,9 @@ set autoread
 " 文件类型相关设置 FileType-Specific settings ----------------------------------------------
 
 autocmd BufNewFile,BufRead *.html setlocal nowrap
+" au BufWritePost *.java normal G<c-o><c-o>
+au BufWritePost *.sh exe "normal! ggG\<c-o>\<c-o>"
+
 " 使得无论你在什么时候编辑HTML文件自动换行都会被关闭。
 
 "  映射 mappings ----------------------------------------------------------------------------
@@ -500,6 +520,16 @@ nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>` viw<esc>a`<esc>hbi`<esc>lel
 vnoremap <leader>' `><esc>a'<esc>`<i'<esc>`>
 
+inoremap <C-h> <Backspace>
+inoremap <C-k> <esc>lC
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Delete>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+
 
 "<Leader>f在当前目录搜索文件
 nnoremap <Leader>F :Files<CR>
@@ -509,13 +539,58 @@ nnoremap <Leader>B :Buffers<CR>
 nnoremap <Leader>P :Lines<CR>
 "<Leader>h在Vim打开的历史文件中搜索，相当于是在MRU中搜索，:History：命令历史查找
 nnoremap <Leader>H :History<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
+
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+" let t:root = g:NERDTree.ForCurrentTab().getRoot().path.str()
+
+" https://github.com/junegunn/fzf/issues/453
+nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Rg\<cr>"
 "调用Rg进行搜索，包含隐藏文件
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+" command! -bang -nargs=* Rg
+  " \ call fzf#vim#grep(
+  " \   'rg --column --line-number --no-heading --color=always --smart-case --hidden '.shellescape(<q-args>), 1,{'dir': '/Users/wuxiaoming/go'},
+  " \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  " \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  " \   <bang>0)
+
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'dir': '/Users/wuxiaoming/go', 'options': '--delimiter : --nth 4..'}, <bang>0)
+
+
+" function! FZFOpen(command_str)
+  " if (expand('%') =~# 'NERD_tree' && winnr('$') > 1)
+    " exe "normal! \<c-w>\<c-w>"
+  " endif
+  " exe 'normal! ' . a:command_str . "\<cr>"
+" endfunction
+
+" function! RgDir(isFullScreen, args)
+    " let l:restArgs = [a:args]
+
+    " let l:restArgs = split(l:restArgs[0], '-pattern=', 1)
+    " let l:pattern = join(l:restArgs[1:], '')
+
+    " let l:restArgs = split(l:restArgs[0], '-path=', 1)
+    " " Since 8.0.1630 vim has a built-in trim() function
+    " let l:path = trim(l:restArgs[1])
+
+    " call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. shellescape(l:pattern), 1, {'dir': l:path}, a:isFullScreen)
+" endfunction
+
+" the path param should not have `-pattern=`
+command! -bang -nargs=+ -complete=dir RgD call RgDir(<bang>0, <q-args>)
+nnoremap <leader>zd :RgD -path= . -pattern=
+" nnoremap <leader>f :FZF -q <C-R>=expand("<cword>")<CR><CR>
+
+" nnoremap <silent> <C-b> :call FZFOpen(':Buffers')<CR>
+" nnoremap <silent> <C-g>g :call FZFOpen(':Ag')<CR>
+" nnoremap <silent> <C-g>c :call FZFOpen(':Commands')<CR>
+" nnoremap <silent> <C-g>l :call FZFOpen(':BLines')<CR>
+" nnoremap <silent> <C-p> :call FZFOpen(':Files')<CR>
 
 nmap <F8> :TagbarToggle<CR>
 
