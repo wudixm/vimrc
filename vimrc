@@ -1,3 +1,4 @@
+" 实际地址IdeaProjects/vimrc
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -605,3 +606,5 @@ nmap <F8> :TagbarToggle<CR>
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+
