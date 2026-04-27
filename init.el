@@ -133,7 +133,9 @@
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+			 ))
 
 ;(setq package-archives
       ;'(("gnu" . "http://elpa.gnu.org/packages/")
@@ -294,7 +296,8 @@ me-mode 1)))
   (auto-fill-mode 0)
   (visual-line-mode 1)
   (setq evil-auto-indent nil)
-  (diminish org-indent-mode))
+  (diminish org-indent-mode)
+)
 
 
 (use-package org
@@ -316,9 +319,20 @@ me-mode 1)))
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  (org-superstar-remove-leading-stars t)
+  (org-superstar-remove-leading-stars nil)
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
+(setq org-superstar-remove-leading-stars nil)
+;; Hide leading stars
+(setq org-hide-leading-stars t)
+
+;(defun my-forward-heading-same-level (arg)
+  ;(interactive "p")
+  ;(org-forward-heading-same-level arg t))
+;(defun my-backward-heading-same-level (arg)
+  ;(interactive "p")
+  ;(org-backward-heading-same-level arg t))
+;
 
 ;; Replace list hyphen with dot
 (font-lock-add-keywords 'org-mode
@@ -361,6 +375,8 @@ me-mode 1)))
   (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
   )
 
+(use-package org-contrib
+  :ensure t)
 (add-to-list 'load-path "~/local/softwares/common/emacs/orgmode-master/contrib/lisp" t)
 (add-to-list 'exec-path "/usr/local/bin/") 
 (setq org-pandoc-options '((standalone . t)))
@@ -517,4 +533,6 @@ me-mode 1)))
 (with-eval-after-load 'cdlatex
   (define-key cdlatex-mode-map "$" nil))
 
+
+(cua-mode 1)
 
